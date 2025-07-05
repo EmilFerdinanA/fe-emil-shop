@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useMutation } from "@tanstack/react-query";
 
 type FormData = {
   username: string;
@@ -16,17 +17,37 @@ export function LoginForm({
   ...props
 }: React.ComponentProps<"form">) {
   const { register, handleSubmit } = useForm<FormData>();
-  const onSubmit = handleSubmit(async (data) => {
-    console.log(data);
-    const response = await fetch("http://localhost:5000/api/v1/auth/sign-in", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    console.log(await response.json());
+
+  const loginMutation = useMutation({
+    mutationFn: async (data: FormData) => {
+      const response = await fetch(
+        "http://localhost:5000/api/v1/auth/sign-in",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Login failed");
+      }
+
+      return response.json();
+    },
+    onSuccess: (data) => {
+      console.log("Login successful:", data);
+      // simpan token / redirect di sini
+    },
+    onError: (error) => {
+      console.error("Login error:", error);
+    },
   });
+
+  const onSubmit = handleSubmit(async (data) => {
+    await loginMutation.mutateAsync(data);
+  });
+
   return (
     <form
       onSubmit={onSubmit}
