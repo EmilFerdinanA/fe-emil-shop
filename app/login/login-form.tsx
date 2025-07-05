@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useMutation } from "@tanstack/react-query";
+import { login } from "@/app/login/service";
+import { useRouter } from "next/navigation";
 
 type FormData = {
   username: string;
@@ -17,35 +19,21 @@ export function LoginForm({
   ...props
 }: React.ComponentProps<"form">) {
   const { register, handleSubmit } = useForm<FormData>();
+  const router = useRouter();
 
   const loginMutation = useMutation({
-    mutationFn: async (data: FormData) => {
-      const response = await fetch(
-        "http://localhost:5000/api/v1/auth/sign-in",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Login failed");
-      }
-
-      return response.json();
-    },
+    mutationFn: login,
     onSuccess: (data) => {
+      router.replace("dashboard");
       console.log("Login successful:", data);
-      // simpan token / redirect di sini
     },
     onError: (error) => {
       console.error("Login error:", error);
     },
   });
 
-  const onSubmit = handleSubmit(async (data) => {
-    await loginMutation.mutateAsync(data);
+  const onSubmit = handleSubmit((data) => {
+    loginMutation.mutate(data);
   });
 
   return (
@@ -62,7 +50,7 @@ export function LoginForm({
       </div>
       <div className="grid gap-6">
         <div className="grid gap-3">
-          <Label htmlFor="email">Email</Label>
+          <Label htmlFor="email">Username</Label>
           <Input
             id="email"
             type="text"
