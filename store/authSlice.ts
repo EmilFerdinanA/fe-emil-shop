@@ -1,15 +1,10 @@
+import { ILoginDAO, User } from "@/app/login/dao";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-interface User {
-  username: string;
-  email: string;
-  role: string;
-  permissions: string[];
-}
 
 interface CounterState {
   token: string;
   user: User;
+  isLogin: boolean;
 }
 
 const initialState: CounterState = {
@@ -20,16 +15,20 @@ const initialState: CounterState = {
     role: "",
     permissions: [],
   },
+  isLogin: false,
 };
 
 export const counterSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setToken: (state, action: PayloadAction<string>) => {
-      state.token = action.payload;
+    setAuth: (state, action: PayloadAction<ILoginDAO>) => {
+      state.token = action.payload.token;
+      state.user = action.payload.user;
+      state.isLogin = true;
     },
   },
 });
 
+export const { setAuth } = counterSlice.actions;
 export default counterSlice.reducer;

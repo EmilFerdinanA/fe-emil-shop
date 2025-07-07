@@ -8,9 +8,8 @@ import { Label } from "@/components/ui/label";
 import { useMutation } from "@tanstack/react-query";
 import { login } from "@/app/login/service";
 import { useRouter } from "next/navigation";
-import { useAppDispatch, useAppSelector } from "@/hooks/use-redux";
-import { selectToken } from "@/store/authSelector";
-import { setToken } from "@/store/authAction";
+import { useAppDispatch } from "@/hooks/use-redux";
+import { setAuth } from "@/store/authSlice";
 
 type FormData = {
   username: string;
@@ -24,13 +23,12 @@ export function LoginForm({
   const { register, handleSubmit } = useForm<FormData>();
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const token = useAppSelector(selectToken);
 
   const loginMutation = useMutation({
     mutationFn: login,
     onSuccess: ({ data }) => {
       router.replace("dashboard");
-      dispatch(setToken(data.token));
+      dispatch(setAuth(data));
     },
     onError: (error) => {
       console.error("Login error:", error);
@@ -40,8 +38,6 @@ export function LoginForm({
   const onSubmit = handleSubmit((data) => {
     loginMutation.mutate(data);
   });
-
-  console.log(token, "emil");
 
   return (
     <form
