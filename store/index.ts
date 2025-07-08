@@ -1,11 +1,12 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import authReducer from "./authSlice";
 import { persistReducer, persistStore } from "redux-persist";
-import storage from "redux-persist/lib/storage";
+import { storage } from "@/utils/cookieStorage";
 
 const authPersistConfig = {
   key: "auth",
   storage,
+  // whitelist: ['token', 'user', 'role', 'permissions'] /**Field Apa saja yang ingin di persist */
 };
 
 const rootReducer = combineReducers({
@@ -14,6 +15,10 @@ const rootReducer = combineReducers({
 
 export const store = configureStore({
   reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
 
 export const persistor = persistStore(store);
