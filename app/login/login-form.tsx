@@ -10,6 +10,7 @@ import { login } from "@/app/login/service";
 import { useRouter } from "next/navigation";
 import { useAppDispatch } from "@/hooks/use-redux";
 import { setAuth } from "@/store/authSlice";
+import { persistor } from "@/store";
 
 type FormData = {
   username: string;
@@ -26,9 +27,10 @@ export function LoginForm({
 
   const loginMutation = useMutation({
     mutationFn: login,
-    onSuccess: ({ data }) => {
-      router.replace("dashboard");
+    onSuccess: async ({ data }) => {
       dispatch(setAuth(data));
+      await persistor.flush();
+      router.replace("dashboard");
     },
     onError: (error) => {
       console.error("Login error:", error);
