@@ -1,16 +1,13 @@
 import { AppSidebar } from "@/components/app-sidebar";
-import { Separator } from "@/components/ui/separator";
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { DataTable } from "../payments/data-table";
-import { columns } from "../payments/columns";
-import { getData } from "../payments/page";
+import { Separator } from "@radix-ui/react-separator";
+import React from "react";
 
-export default async function Page() {
-  const data = await getData();
+export default function layout({ children }: { children: React.ReactNode }) {
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -25,9 +22,7 @@ export default async function Page() {
             EmilShop
           </div>
         </header>
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          <DataTable columns={columns} data={data} />
-        </div>
+        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">{children}</div>
       </SidebarInset>
     </SidebarProvider>
   );
