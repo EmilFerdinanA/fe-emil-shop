@@ -31,7 +31,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { PaginationWithLinks } from "./pagination-with-links";
+import { PaginationWithLinks } from "./ui/pagination-with-links";
 import { useSearchParams } from "next/navigation";
 
 const data: Payment[] = [
