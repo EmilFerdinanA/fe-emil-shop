@@ -1,6 +1,9 @@
-import { DataTableDemo } from "@/components/ui/newTable";
-import React from "react";
+import Container from "./container";
+// import { getListUser } from "./service";
 
-export default function page() {
-  return <DataTableDemo />;
+export default async function page() {
+  // const data = await getListUser();
+
+  console.log("emildasjdi", "datanya");
+  return <Container />;
 }
