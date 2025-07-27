@@ -28,10 +28,11 @@ import { useSearchParams } from "next/navigation";
 interface IProps<T> {
   columns: ColumnDef<T>[];
   data: T[];
+  totalData: number;
 }
 
 export function AppTable<T>(props: IProps<T>) {
-  const { data, columns } = props;
+  const { data, columns, totalData } = props;
 
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -117,7 +118,7 @@ export function AppTable<T>(props: IProps<T>) {
           pageSizeSelectOptions={{ pageSizeOptions: [5, 10, 15, 20] }}
           page={page}
           pageSize={pageSize}
-          totalCount={100}
+          totalCount={totalData}
         />
       </div>
     </div>
