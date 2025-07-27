@@ -6,7 +6,6 @@ import { Input } from "@/components/ui/input";
 import { IResponse } from "@/types/dao";
 import { IUserDAO } from "./dao";
 import React from "react";
-import { Button } from "@/components/ui/button";
 // import { ChevronDown } from "lucide-react";
 // import {
 //   DropdownMenu,
@@ -16,7 +15,6 @@ import { Button } from "@/components/ui/button";
 // } from "@/components/ui/dropdown-menu";
 import { useQuery } from "@tanstack/react-query";
 import { getListUser } from "./service";
-import { Plus } from "lucide-react";
 import { DialogDemo } from "./form-create";
 
 interface IProps {

@@ -62,8 +62,8 @@ const data = {
           url: "user",
         },
         {
-          title: "Starred",
-          url: "#",
+          title: "Role",
+          url: "role",
         },
         {
           title: "Settings",
