@@ -3,5 +3,5 @@ import Container from "./container";
 
 export default async function page() {
   const { data } = await httpServer("user");
-  return <Container data={data} />;
+  return <Container initialData={data} />;
 }
