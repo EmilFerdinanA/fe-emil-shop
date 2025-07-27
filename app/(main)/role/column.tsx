@@ -19,10 +19,10 @@ export const columns: ColumnDef<IRoleDAO>[] = [
   },
   {
     accessorKey: "permissions",
-    header: () => <div className="flex-1">Permissions</div>,
+    header: () => <div className="w-96">Permissions</div>,
     cell: ({ row }) => {
       return (
-        <div className="flex-1 lowercase flex gap-2">
+        <div className="w-96 lowercase flex gap-2">
           {(row.getValue("permissions") as string[]).map((e, index) => (
             <div key={index} className="text-sm border p-1 rounded bg-gray-100">
               {e}
