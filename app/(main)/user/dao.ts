@@ -1,6 +1,11 @@
-export type Payment = {
+export interface IUserDAO {
   id: string;
-  amount: number;
-  status: "pending" | "processing" | "success" | "failed";
+  username: string;
   email: string;
-};
+  role: Role;
+}
+
+interface Role {
+  id: string;
+  name: string;
+}

@@ -1,5 +1,7 @@
 import axios from "axios";
-import { cookies } from "next/headers";
+
+import { store } from "@/store";
+import { selectToken } from "@/store/authSelector";
 
 export const httpClient = axios.create({
   baseURL: "http://localhost:5000/api/v1/",
@@ -8,12 +10,7 @@ export const httpClient = axios.create({
 
 httpClient.interceptors.request.use(
   async function (config) {
-    const cookie = await cookies();
-    const raw = cookie.get("persist%3Aauth")?.value;
-
-    let parseCookie;
-    if (raw) parseCookie = JSON.parse(raw);
-    const token = JSON.parse(parseCookie.token);
+    const token = selectToken(store.getState());
     if (token) config.headers.Authorization = `Bearer ${token}`;
 
     return config;

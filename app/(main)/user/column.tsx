@@ -2,19 +2,19 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Eye, PencilLine, Trash2 } from "lucide-react";
-import { Payment } from "./dao";
+import { IUserDAO } from "./dao";
 
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<IUserDAO>[] = [
   {
     id: "no",
     header: () => <div className="w-8">No</div>,
     cell: ({ row }) => <div className="w-8">{row.index + 1}</div>,
   },
   {
-    accessorKey: "status",
-    header: () => <div className="w-24">Status</div>,
+    accessorKey: "username",
+    header: () => <div className="w-24">Username</div>,
     cell: ({ row }) => (
-      <div className="w-24 capitalize">{row.getValue("status")}</div>
+      <div className="w-24 capitalize">{row.getValue("username")}</div>
     ),
   },
   {
@@ -25,18 +25,11 @@ export const columns: ColumnDef<Payment>[] = [
     ),
   },
   {
-    accessorKey: "amount",
-    header: () => <div className="w-16">Amount</div>,
+    accessorKey: "role",
+    header: () => <div className="w-44">Role</div>,
     cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"));
-
-      // Format the amount as a dollar amount
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(amount);
-
-      return <div className="w-16 font-medium">{formatted}</div>;
+      const roleName = row.original.role?.name || "-";
+      return <div className="w-44 font-medium">{roleName}</div>;
     },
   },
   {

@@ -1,14 +1,10 @@
 import { AppTable } from "@/components/app-table";
 import { columns } from "./column";
-import { data } from "./data";
-import { httpClient } from "@/lib/axios";
+import { httpServer } from "@/lib/httpServer";
 
 const Container = async () => {
-  const response = await httpClient("user");
-
-  console.log(response.data, "response");
-
-  return <AppTable data={data} columns={columns} />;
+  const { data } = await httpServer("user");
+  return <AppTable data={data.data} columns={columns} />;
 };
 
 export default Container;
