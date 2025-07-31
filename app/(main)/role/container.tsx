@@ -1,8 +1,8 @@
 "use client";
 
+import React, { useState } from "react";
 import { AppTable } from "@/components/app-table";
 import { IResponse } from "@/types/dao";
-import React, { useState } from "react";
 import { IRoleDAO } from "./dao";
 import { columns } from "./column";
 import { Input } from "@/components/ui/input";

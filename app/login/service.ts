@@ -1,4 +1,4 @@
-import { httpClient } from "@/lib/axios";
+import { httpClient } from "@/lib/httpClient";
 import { ILoginDTO } from "./dto";
 import { ILoginDAO } from "./dao";
 import { IResponse } from "@/types/dao";
