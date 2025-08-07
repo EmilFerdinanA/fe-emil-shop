@@ -56,7 +56,7 @@ const chartConfig = {
 
 export function ChartPieLabel() {
   return (
-    <Card className="w-full">
+    <Card className="min-w-3xl">
       <CardHeader className="items-center pb-0">
         <CardTitle>Pie Chart - Label</CardTitle>
         <CardDescription>January - June 2024</CardDescription>

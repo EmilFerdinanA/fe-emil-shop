@@ -42,7 +42,7 @@ const chartConfig = {
 
 export function ChartLineMultiple() {
   return (
-    <Card className="w-full">
+    <Card className="min-w-3xl">
       <CardHeader>
         <CardTitle>Line Chart - Multiple</CardTitle>
         <CardDescription>January - June 2024</CardDescription>
